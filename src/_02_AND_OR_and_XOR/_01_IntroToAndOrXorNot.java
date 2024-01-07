@@ -20,7 +20,7 @@ package _02_AND_OR_and_XOR;
  *      0 1 0 1     // 5 decimal
  *    & 1 0 0 1     // 9 decimal
  *    ---------
- *      0 0 0 1     // 1 dceimal. Since the rightmost column (ones column) is
+ *      0 0 0 1     // 1 decimal. Since the rightmost column (ones column) is
  *                  // the only column that both have a 1, the result is 1.
  * 
  * The | operator is the bitwise OR operator. If any value is 1 the outcome
