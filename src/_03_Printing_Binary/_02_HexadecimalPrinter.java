@@ -70,7 +70,7 @@ public class _02_HexadecimalPrinter implements ActionListener {
 		String hexDigits = "0123456789ABCDEF";
 		while ((num / 16) != 0) {
 			int add2 = num % 16;
-			String hex = hexDigits.substring(add, add + 1);
+			String hex = hexDigits.substring(add2, add2 + 1);
 			str = hex + str;
 			int n = num / 16;
 			num = n;
@@ -106,8 +106,23 @@ public class _02_HexadecimalPrinter implements ActionListener {
 		if (binaryStr.length() != 8) {
 			return "-";
 		}
+		int num = 0;
+		int add = 1;
 
-		return "-";
+		while (binaryStr.length() > 0) {
+			int len = binaryStr.length();
+			String start = binaryStr.substring(0, len - 1);
+			String end = binaryStr.substring(len - 1);
+
+			if (end.equals("1"))
+				num += add;
+
+			add *= 2;
+			binaryStr = start;
+		}
+		char c = (char) num;
+		String str = "" + c;
+		return str;
 	}
 
 	public static void main(String[] args) {
