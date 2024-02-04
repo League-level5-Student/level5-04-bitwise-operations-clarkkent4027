@@ -48,27 +48,12 @@ public class LightSwitches implements GameControlScene {
 
 	// 8-bit bitmap. Leave as int so methods won't have to cast to a byte
 	int lightsOnOff = 0;
-
 	/*
 	 * This method should check if the specified light is on, example: index = 6 //
 	 * return true if pink is on (bit 6 == 1)
 	 */
 	boolean isLightOn(int index) {
-		String mask = "";
-		for (int i = 7; i >=0; i--) {
-			if (i == index) {
-				mask += "1";
-			} else {
-				mask += "0";
-			}
-		}
-		int bits = Integer.parseInt(mask);
-		int check = (lightsOnOff | bits);
-		if (check == lightsOnOff)
-			return true;
-		else
-			return false;
-
+return ((1 << index) & lightsOnOff) !=0;
 	}
 
 	/*
@@ -76,16 +61,7 @@ public class LightSwitches implements GameControlScene {
 	 * yellow only (set bit 4 = 1)
 	 */
 	void turnLightOn(int index) {
-		String mask = "";
-		for (int i = 7; i >= 0; i--) {
-			if (i == index) {
-				mask += "1";
-			} else {
-				mask += "0";
-			}
-			int bits = Integer.parseInt(mask);
-			lightsOnOff = (lightsOnOff | bits);
-		}
+lightsOnOff = ((1 << index)| lightsOnOff);
 	}
 
 	/*
@@ -93,21 +69,12 @@ public class LightSwitches implements GameControlScene {
 	 * bit 0 = 0)
 	 */
 	void turnLightOff(int index) {
-		String mask = "";
-		for (int i = 7; i >= 0; i--) {
-			if (i == index) {
-				mask += "0";
-			} else {
-				mask += "1";
-			}
-			int bits = Integer.parseInt(mask);
-			lightsOnOff = (lightsOnOff & bits);
-		}
+	lightsOnOff = ((1 << index) & ~lightsOnOff);
 	}
 
 	/*
 	 * This method should be able to turn on multiple lights lightsBitmap =
-	 * 0b01100110 // lights 1, 2, 5, 6 on
+	 * 0b01100110 // lights 1, 2, 5, 6 on		
 	 * 
 	 */
 	void turnMultiLightsOn(int lightsBitmap) {
@@ -215,7 +182,7 @@ public class LightSwitches implements GameControlScene {
 
 		for (int i = 0; i < lightColors.length; i++) {
 			Graphics2D g2 = (Graphics2D) g;
-			width = (DISPLAY_WIDTH - 20) / lightColors.length;
+			width = (DISPLAY_WIDTH*2 - 20) / lightColors.length;
 			height = width;
 			x = i * width;
 			y = 10;
@@ -224,9 +191,9 @@ public class LightSwitches implements GameControlScene {
 			g2.setColor(lightColors[i]);
 
 			if (isLightOn(i)) {
-				g2.fillOval(x, y, width, height);
+				g2.fillOval(x* 2, y* 2, width * 2, height* 2);
 			} else {
-				g2.drawOval(x, y, width, height);
+				g2.drawOval(x*2, y*2, width * 2, height * 2);
 			}
 		}
 	}

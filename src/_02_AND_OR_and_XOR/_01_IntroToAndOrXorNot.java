@@ -1,4 +1,4 @@
-package _02_AND_OR_and_XOR;
+	package _02_AND_OR_and_XOR;
 
 /*
  * Goal: Learn about the ~, &, |, and ^ operators
